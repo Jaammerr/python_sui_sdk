@@ -61,7 +61,7 @@ def example_wallet():
     '''ANOTHER FUNCTION USING SAME'''
 
 
-def example_client(self):
+def example_client():
     # get example NFT
     response_data = client.mint_example_nft()
 
@@ -80,7 +80,7 @@ def example_client(self):
     '''ANOTHER FUNCTION USING SAME'''
 
 
-def example_rpc(self):
+def example_rpc():
     # get transaction ID (digest)
     transaction_id = rpc.get_transaction_id(
         GetTransactionsIDParams(
