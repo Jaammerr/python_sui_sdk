@@ -53,7 +53,7 @@ class Client:
 
 
     def batch_transaction(self, tx: BatchTransactionParams):
-        return self.send_request_to_rpc(
+        response = self.send_request_to_rpc(
             method="sui_batchTransaction",
             params=[
                 self.get_address(),
@@ -62,6 +62,9 @@ class Client:
                 tx.gas,
                 tx.gas_budget
             ])
+
+        tx_bytes = base64.b64decode(str(response['result']['txBytes']))
+        return self.sign_and_execute_transaction(tx_bytes)
 
 
     def dryrun_transaction(self, tx: DryRunTransactionParams):
@@ -111,7 +114,7 @@ class Client:
 
 
     def move_call(self, tx: MoveCallParams):
-        return self.send_request_to_rpc(
+        response = self.send_request_to_rpc(
             method="sui_moveCall",
             params=[
                 self.get_address(),
@@ -124,9 +127,14 @@ class Client:
                 tx.gas_budget,
             ])
 
+        tx_bytes = base64.b64decode(str(response['result']['txBytes']))
+        return self.sign_and_execute_transaction(tx_bytes)
+
+
+
 
     def transfer_object(self, tx: TransferObjectParams):
-        return self.send_request_to_rpc(
+        response = self.send_request_to_rpc(
             method="sui_transferObject",
             params=[
                 self.get_address(),
@@ -136,9 +144,12 @@ class Client:
                 tx.recipient
             ])
 
+        tx_bytes = base64.b64decode(str(response['result']['txBytes']))
+        return self.sign_and_execute_transaction(tx_bytes)
+
 
     def transfer_sui(self, tx: TransferSuiParams):
-        return self.send_request_to_rpc(
+        response = self.send_request_to_rpc(
             method="sui_transferObject",
             params=[
                 self.get_address(),
@@ -148,9 +159,12 @@ class Client:
                 tx.amount
             ])
 
+        tx_bytes = base64.b64decode(str(response['result']['txBytes']))
+        return self.sign_and_execute_transaction(tx_bytes)
+
 
     def merge_coins(self, tx: MergeCoinsParams):
-        return self.send_request_to_rpc(
+        response = self.send_request_to_rpc(
             method='sui_mergeCoins',
             params=[
                 self.get_address(),
@@ -158,11 +172,13 @@ class Client:
                 tx.coin_to_merge,
                 tx.gas,
                 tx.gas_budget
-            ]
-        )
+            ])
+
+        tx_bytes = base64.b64decode(str(response['result']['txBytes']))
+        return self.sign_and_execute_transaction(tx_bytes)
 
     def pay_sui(self, tx: PayParams):
-        return self.send_request_to_rpc(
+        response = self.send_request_to_rpc(
             method='sui_pay',
             params=[
                 self.get_address(),
@@ -174,9 +190,12 @@ class Client:
             ]
         )
 
+        tx_bytes = base64.b64decode(str(response['result']['txBytes']))
+        return self.sign_and_execute_transaction(tx_bytes)
+
 
     def pay_all_sui(self, tx: PayAllParams):
-        return self.send_request_to_rpc(
+        response = self.send_request_to_rpc(
             method='sui_payAllSui',
             params=[
                 self.get_address(),
@@ -186,8 +205,11 @@ class Client:
             ]
         )
 
+        tx_bytes = base64.b64decode(str(response['result']['txBytes']))
+        return self.sign_and_execute_transaction(tx_bytes)
+
     def publish(self, tx: PublishParams):
-        return self.send_request_to_rpc(
+        response = self.send_request_to_rpc(
             method='sui_publish',
             params=[
                 self.get_address(),
@@ -197,8 +219,11 @@ class Client:
             ]
         )
 
+        tx_bytes = base64.b64decode(str(response['result']['txBytes']))
+        return self.sign_and_execute_transaction(tx_bytes)
+
     def split_coin(self, tx: SplitCoinParams):
-        return self.send_request_to_rpc(
+        response = self.send_request_to_rpc(
             method='sui_splitCoin',
             params=[
                 self.get_address(),
@@ -209,8 +234,11 @@ class Client:
             ]
         )
 
+        tx_bytes = base64.b64decode(str(response['result']['txBytes']))
+        return self.sign_and_execute_transaction(tx_bytes)
+
     def split_coin_equal(self, tx: SplitCoinEqualParams):
-        return self.send_request_to_rpc(
+        response = self.send_request_to_rpc(
             method='sui_splitCoinEqual',
             params=[
                 self.get_address(),
@@ -220,6 +248,9 @@ class Client:
                 tx.gas_budget
             ]
         )
+
+        tx_bytes = base64.b64decode(str(response['result']['txBytes']))
+        return self.sign_and_execute_transaction(tx_bytes)
 
 
     def sign_data(self, data: bytes) -> Optional[bytes]:
