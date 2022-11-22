@@ -11,6 +11,7 @@ All functions can be viewed here: https://docs.sui.io/sui-jsonrpc
 - Function to request test tokens from a faucet
 - Function to get public key as b64 string
 - Function to get transaction ID
+- Function to auto sign and execute client transactions
 
 ## Installation
 
